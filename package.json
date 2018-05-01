@@ -24,7 +24,8 @@
     "jws": "^3.1.4",
     "lodash.isstring": "^4.0.1",
     "lodash.merge": "^4.6.0",
-    "request": "^2.81.0"
+    "request": "^2.81.0",
+    "requestretry": "^1.13.0"
   },
   "devDependencies": {
     "@types/lodash.isstring": "^4.0.2",

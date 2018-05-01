@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import * as request from 'request';
+import * as request from 'requestretry';
 
 // tslint:disable-next-line
 const pkg = require('../package.json');
@@ -53,6 +53,12 @@ export class DefaultTransporter {
         -1) {
       opts.headers['User-Agent'] =
           opts.headers['User-Agent'] + ' ' + DefaultTransporter.USER_AGENT;
+    }
+    if(!opts.maxAttempts) {
+      opts.maxAttempts = 5;
+    }
+    if (!opts.retryDelay) {
+      opts.retryDelay = 500;
     }
     return opts;
   }

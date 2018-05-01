@@ -10,7 +10,7 @@
   "types": "./types/lib/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/google/google-auth-library-nodejs.git"
+    "url": "https://github.com/nmuntyanov/google-auth-library-nodejs.git"
   },
   "keywords": [
     "google",

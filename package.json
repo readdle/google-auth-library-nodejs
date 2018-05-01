@@ -25,9 +25,7 @@
     "lodash.isstring": "^4.0.1",
     "lodash.merge": "^4.6.0",
     "request": "^2.81.0",
-    "requestretry": "^1.13.0"
-  },
-  "devDependencies": {
+    "requestretry": "^1.13.0",
     "@types/lodash.isstring": "^4.0.2",
     "@types/lodash.merge": "^4.6.2",
     "@types/mocha": "^2.2.41",
@@ -53,13 +51,6 @@
     "typedoc": "^0.5.10",
     "typescript": "^2.3.4"
   },
-  "files": [
-    "LICENSE",
-    "README.md",
-    "lib/**/*.js",
-    "package.json",
-    "types/lib"
-  ],
   "scripts": {
     "postinstall": "npm run build",
     "check-format": "gulp test.check-format",

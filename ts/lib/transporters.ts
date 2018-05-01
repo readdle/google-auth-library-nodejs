@@ -56,7 +56,7 @@ export class DefaultTransporter {
       opts.headers['User-Agent'] =
           opts.headers['User-Agent'] + ' ' + DefaultTransporter.USER_AGENT;
     }
-    if(!opts.maxAttempts) {
+    if (!opts.maxAttempts) {
       opts.maxAttempts = 5;
     }
     if (!opts.retryDelay) {
@@ -73,7 +73,8 @@ export class DefaultTransporter {
    */
   public request(opts: any, callback?: BodyResponseCallback) {
     opts = this.configure(opts);
-    return requestRetry(opts.uri || opts.url, opts, this.wrapCallback_(callback));
+    return requestRetry(
+        opts.uri || opts.url, opts, this.wrapCallback_(callback));
   }
 
   /**

@@ -34,7 +34,6 @@ function createJSON() {
 }
 
 describe('.getRequestMetadata', () => {
-
   it('create a signed JWT token as the access token', (done) => {
     const keys = keypair(1024 /* bitsize of private key */);
     const testUri = 'http:/example.com/my_test_service';
@@ -56,18 +55,15 @@ describe('.getRequestMetadata', () => {
     const res = client.getRequestMetadata(testUri, expectAuth);
     assert.strictEqual(res, retValue);
   });
-
 });
 
 describe('.createScopedRequired', () => {
-
   it('should return false', () => {
     const auth = new GoogleAuth();
     const client = new auth.JWTAccess('foo@serviceaccount.com', null);
 
     assert.equal(false, client.createScopedRequired());
   });
-
 });
 
 describe('.fromJson', () => {
@@ -127,7 +123,6 @@ describe('.fromJson', () => {
       done();
     });
   });
-
 });
 
 describe('.fromStream', () => {
@@ -164,5 +159,4 @@ describe('.fromStream', () => {
       done();
     });
   });
-
 });

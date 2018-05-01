@@ -42,7 +42,6 @@ function createJSON() {
 }
 
 describe('Initial credentials', () => {
-
   it('should create a dummy refresh token string', () => {
     // It is important that the compute client is created with a refresh token
     // value filled in, or else the rest of the logic will not work.
@@ -50,13 +49,10 @@ describe('Initial credentials', () => {
     const jwt = new auth.JWT();
     assert.equal('jwt-placeholder', jwt.credentials.refresh_token);
   });
-
 });
 
 describe('JWT auth client', () => {
-
   describe('.authorize', () => {
-
     it('should get an initial access token', (done) => {
       const auth = new GoogleAuth();
       const jwt = new auth.JWT(
@@ -98,13 +94,10 @@ describe('JWT auth client', () => {
 
       jwt.authorize();
     });
-
   });
 
   describe('.getAccessToken', () => {
-
     describe('when scopes are set', () => {
-
       it('can get obtain new access token', (done) => {
         const auth = new GoogleAuth();
         const jwt = new auth.JWT(
@@ -126,15 +119,11 @@ describe('JWT auth client', () => {
           done();
         });
       });
-
     });
-
   });
 
   describe('.getRequestMetadata', () => {
-
     describe('when scopes are set', () => {
-
       it('can obtain new access token', (done) => {
         const auth = new GoogleAuth();
         const jwt = new auth.JWT(
@@ -161,11 +150,9 @@ describe('JWT auth client', () => {
         });
         assert.strictEqual(res, retValue);
       });
-
     });
 
     describe('when scopes are not set, but a uri is provided', () => {
-
       it('gets a jwt header access token', (done) => {
         const keys = keypair(1024 /* bitsize of private key */);
         const email = 'foo@serviceaccount.com';
@@ -190,13 +177,10 @@ describe('JWT auth client', () => {
         });
         assert.strictEqual(res, retValue);
       });
-
     });
-
   });
 
   describe('.request', () => {
-
     it('should refresh token if missing access token', (done) => {
       const auth = new GoogleAuth();
       const jwt = new auth.JWT(
@@ -318,7 +302,6 @@ describe('JWT auth client', () => {
         done();
       });
     });
-
   });
 
   it('should return expiry_date in milliseconds', (done) => {
@@ -343,7 +326,6 @@ describe('JWT auth client', () => {
       done();
     });
   });
-
 });
 
 describe('.createScoped', () => {
@@ -424,7 +406,6 @@ describe('.createScoped', () => {
     const clone = jwt.createScoped('hi');
     assert.notEqual(jwt, clone);
   });
-
 });
 
 describe('.createScopedRequired', () => {
@@ -477,7 +458,6 @@ describe('.createScopedRequired', () => {
 
   it('should return false when scopes is not an array or a string, but can be used as a string',
      () => {
-
        const auth2 = new GoogleAuth();
        const jwt = new auth2.JWT(
            'foo@serviceaccount.com', '/path/to/key.pem', null, '2',
@@ -568,7 +548,6 @@ describe('.fromJson', () => {
       done();
     });
   });
-
 });
 
 describe('.fromStream', () => {
@@ -609,7 +588,6 @@ describe('.fromStream', () => {
       done();
     });
   });
-
 });
 
 describe('.fromAPIKey', () => {

@@ -61,6 +61,7 @@
     "types/lib"
   ],
   "scripts": {
+    "postinstall": "npm run build",
     "check-format": "gulp test.check-format",
     "format": "gulp format",
     "lint": "tslint --type-check -p tsconfig.json -c tslint.json ts/**/*.ts",

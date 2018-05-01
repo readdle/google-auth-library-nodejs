@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-import * as request from 'requestretry';
+import * as request from 'request';
+
+const requestRetry = require('requestretry');
 
 // tslint:disable-next-line
 const pkg = require('../package.json');
@@ -71,7 +73,7 @@ export class DefaultTransporter {
    */
   public request(opts: any, callback?: BodyResponseCallback) {
     opts = this.configure(opts);
-    return request(opts.uri || opts.url, opts, this.wrapCallback_(callback));
+    return requestRetry(opts.uri || opts.url, opts, this.wrapCallback_(callback));
   }
 
   /**

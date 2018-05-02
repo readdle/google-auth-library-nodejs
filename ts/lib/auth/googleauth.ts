@@ -32,7 +32,9 @@ import {JWT} from './jwtclient';
 import {OAuth2Client} from './oauth2client';
 import {UserRefreshClient} from './refreshclient';
 
-export interface ProjectIdCallback { (err: Error, projectId: string): void }
+export interface ProjectIdCallback {
+  (err: Error, projectId: string): void
+}
 
 export interface CredentialBody {
   client_email?: string;

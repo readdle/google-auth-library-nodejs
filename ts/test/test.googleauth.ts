@@ -157,7 +157,6 @@ function doneWhen(doneCallback: Function, count: number) {
 
 describe('GoogleAuth', () => {
   describe('.fromJson', () => {
-
     it('should error on null json', (done) => {
       const auth = new GoogleAuth();
       auth.fromJSON(null, (err) => {
@@ -266,7 +265,6 @@ describe('GoogleAuth', () => {
     });
 
     describe('JWT token', () => {
-
       it('should error on empty json', (done) => {
         const auth = new GoogleAuth();
         auth.fromJSON({}, (err) => {
@@ -396,7 +394,6 @@ describe('GoogleAuth', () => {
   });
 
   describe('.fromStream', () => {
-
     it('should error on null stream', (done) => {
       const auth = new GoogleAuth();
       auth.fromStream(null, (err) => {
@@ -455,7 +452,6 @@ describe('GoogleAuth', () => {
   });
 
   describe('._getApplicationCredentialsFromFilePath', () => {
-
     it('should not error on valid symlink', (done) => {
       const auth = new GoogleAuth();
       auth._getApplicationCredentialsFromFilePath(
@@ -511,7 +507,6 @@ describe('GoogleAuth', () => {
       const auth = new GoogleAuth();
       auth._getApplicationCredentialsFromFilePath(
           './nonexistantfile.json', (err) => {
-
             assert.equal(true, err instanceof Error);
             done();
           });
@@ -525,7 +520,6 @@ describe('GoogleAuth', () => {
       // Execute.
       const auth = new GoogleAuth();
       auth._getApplicationCredentialsFromFilePath(directory, (err) => {
-
         assert.equal(true, err instanceof Error);
         done();
       });
@@ -541,7 +535,6 @@ describe('GoogleAuth', () => {
       // Execute.
       auth._getApplicationCredentialsFromFilePath(
           './ts/test/fixtures/private.json', (err) => {
-
             assert.equal(
                 true, stringEndsWith(err.message, 'Hans and Chewbacca'));
             done();
@@ -558,7 +551,6 @@ describe('GoogleAuth', () => {
       // Execute.
       auth._getApplicationCredentialsFromFilePath(
           './ts/test/fixtures/private.json', (err) => {
-
             assert.equal(true, stringEndsWith(err.message, 'Darth Maul'));
             done();
           });
@@ -574,7 +566,6 @@ describe('GoogleAuth', () => {
       // Execute.
       auth._getApplicationCredentialsFromFilePath(
           './ts/test/fixtures/private.json', (err) => {
-
             assert.equal(true, stringEndsWith(err.message, 'Princess Leia'));
             done();
           });
@@ -590,7 +581,6 @@ describe('GoogleAuth', () => {
       const auth = new GoogleAuth();
       auth._getApplicationCredentialsFromFilePath(
           './ts/test/fixtures/private.json', (err, result) => {
-
             assert.equal(null, err);
             assert.equal(json.private_key, result.key);
             assert.equal(json.client_email, result.email);
@@ -603,7 +593,6 @@ describe('GoogleAuth', () => {
   });
 
   describe('._tryGetApplicationCredentialsFromEnvironmentVariable', () => {
-
     it('should return false when env const is not set', (done) => {
       // Set up a mock to return a null path string.
       const auth = new GoogleAuth();
@@ -695,7 +684,6 @@ describe('GoogleAuth', () => {
   });
 
   describe('._tryGetApplicationCredentialsFromWellKnownFile', () => {
-
     it('should build the correct directory for Windows', () => {
       let correctLocation = false;
 
@@ -951,10 +939,8 @@ describe('GoogleAuth', () => {
   });
 
   describe('.getDefaultProjectId', () => {
-
     it('should return a new projectId the first time and a cached projectId the second time',
        (done) => {
-
          const projectId = 'my-awesome-project';
          // The test ends successfully after 3 steps have completed.
          const step = doneWhen(done, 3);
@@ -1111,10 +1097,8 @@ describe('GoogleAuth', () => {
   });
 
   describe('.getApplicationDefault', () => {
-
     it('should return a new credential the first time and a cached credential the second time',
        (done) => {
-
          // The test ends successfully after 3 steps have completed.
          const step = doneWhen(done, 3);
 
@@ -1343,7 +1327,6 @@ describe('GoogleAuth', () => {
   });
 
   describe('._checkIsGCE', () => {
-
     it('should set the _isGCE flag when running on GCE', (done) => {
       const auth = new GoogleAuth();
 

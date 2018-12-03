@@ -83,8 +83,10 @@ export class DefaultTransporter {
    * @return {Function} Wrapped callback function.
    * @private
    */
-  private wrapCallback_(callback?: BodyResponseCallback):
-      request.RequestCallback {
+  private wrapCallback_(callback?: BodyResponseCallback): request.RequestCallback | undefined {
+    if (!callback) {
+      return undefined;
+    }
     return (err: RequestError, res: request.RequestResponse, body: any) => {
       if (err || !body) {
         return callback && callback(err, body, res);

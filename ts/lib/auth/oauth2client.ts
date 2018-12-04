@@ -373,45 +373,68 @@ export class OAuth2Client extends AuthClient {
     const postRequestCb =
         (err: Error, body: any, resp: request.RequestResponse) => {
           const statusCode = resp && resp.statusCode;
-          // Automatically retry 401 and 403 responses
-          // if err is set and is unrelated to response
-          // then getting credentials failed, and retrying won't help
-          if (retry && (statusCode === 401 || statusCode === 403) &&
-              (!err || (err as RequestError).code === statusCode)) {
-            /* It only makes sense to retry once, because the retry is intended
-             * to handle expiration-related failures. If refreshing the token
-             * does not fix the failure, then refreshing again probably won't
-             * help */
-            retry = false;
-            // Force token refresh
-            this.refreshAccessToken(() => {
-              this.getRequestMetadata(unusedUri, authCb);
-            });
-          } else {
-            this.postRequest(err, body, resp, callback);
+          if (statusCode !== 401 && statusCode !== 403) {
+              return;
           }
-        };
+          if (!retry) {
+              return;
+          }
+          if (err && (err as RequestError).code !== statusCode) {
+              return;
+          }
+          retry = false;
+          this.refreshAccessToken(() => {
+              this.getRequestMetadata(unusedUri, () => {
+
+              });
+          });
+      };
 
     authCb = (err, headers, response) => {
-      if (err) {
-        postRequestCb(err, null, response);
-      } else {
+        if (err) {
+          postRequestCb(err, null, response);
+          return this.getRequestMetadata(unusedUri, authCb);
+        }
         if (headers) {
-          opts.headers = opts.headers || {};
-          opts.headers.Authorization = headers.Authorization;
+            opts.headers = opts.headers || {};
+            opts.headers.Authorization = headers.Authorization;
         }
         if (this.apiKey) {
-          if (opts.qs) {
-            opts.qs = merge({}, opts.qs, {key: this.apiKey});
-          } else {
-            opts.qs = {key: this.apiKey};
-          }
+            if (opts.qs) {
+                opts.qs = merge({}, opts.qs, {key: this.apiKey});
+            } else {
+                opts.qs = {key: this.apiKey};
+            }
         }
-        return this._makeRequest(opts, postRequestCb);
-      }
-    };
+        let request = this._makeRequest(opts, callback);
+        request.on("response", (response) => {
+            const statusCode = response && response.statusCode;
+            if (statusCode !== 401 && statusCode !== 403) {
+                return;
+            }
+            if (!retry) {
+                return;
+            }
 
-    return this.getRequestMetadata(unusedUri, authCb);
+            let contentType = response.headers["content-type"];
+            let match = contentType.match(/application\/json.+/);
+            if (!match || match.index !== 0) {
+                return;
+            }
+            var body = "";
+            response.on("data", (data) => {
+                body += data.toString();
+            });
+            response.on("end", () => {
+                let res = JSON.parse(body);
+                postRequestCb(res.error, null, <any>response);
+            });
+        });
+
+        return request;
+      };
+
+      return this.getRequestMetadata(unusedUri, authCb);
   }
 
   /**

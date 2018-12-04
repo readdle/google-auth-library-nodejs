@@ -16,8 +16,6 @@
 
 import * as request from 'request';
 
-const requestRetry = require('requestretry');
-
 // tslint:disable-next-line
 const pkg = require('../package.json');
 
@@ -56,12 +54,7 @@ export class DefaultTransporter {
       opts.headers['User-Agent'] =
           opts.headers['User-Agent'] + ' ' + DefaultTransporter.USER_AGENT;
     }
-    if (!opts.maxAttempts) {
-      opts.maxAttempts = 5;
-    }
-    if (!opts.retryDelay) {
-      opts.retryDelay = 500;
-    }
+
     return opts;
   }
 
@@ -73,8 +66,7 @@ export class DefaultTransporter {
    */
   public request(opts: any, callback?: BodyResponseCallback) {
     opts = this.configure(opts);
-    return requestRetry(
-        opts.uri || opts.url, opts, this.wrapCallback_(callback));
+    return request(opts.uri || opts.url, opts, this.wrapCallback_(callback));
   }
 
   /**
@@ -120,10 +112,7 @@ export class DefaultTransporter {
         (err as RequestError).code = res.statusCode;
         body = null;
       }
-
-      if (callback) {
-        callback(err, body, res);
-      }
+      callback(err, body, res);
     };
   }
 }

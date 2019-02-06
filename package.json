@@ -1,6 +1,6 @@
 {
   "name": "google-auth-library",
-  "version": "0.12.0",
+  "version": "0.13.3",
   "author": "Google Inc.",
   "description": "Google APIs Authentication Client Library for Node.js",
   "engines": {
@@ -10,7 +10,7 @@
   "types": "./types/lib/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nmuntyanov/google-auth-library-nodejs.git"
+    "url": "https://github.com/readdle/google-auth-library-nodejs.git"
   },
   "keywords": [
     "google",
@@ -24,7 +24,9 @@
     "jws": "^3.1.4",
     "lodash.isstring": "^4.0.1",
     "lodash.merge": "^4.6.0",
-    "request": "^2.81.0",
+    "request": "^2.81.0"
+  },
+  "devDependencies": {
     "@types/lodash.isstring": "^4.0.2",
     "@types/lodash.merge": "^4.6.2",
     "@types/mocha": "^2.2.41",
@@ -50,6 +52,13 @@
     "typedoc": "^0.5.10",
     "typescript": "^2.3.4"
   },
+  "files": [
+    "LICENSE",
+    "README.md",
+    "lib/**/*.js",
+    "package.json",
+    "types/lib"
+  ],
   "scripts": {
     "postinstall": "npm run build",
     "check-format": "gulp test.check-format",
